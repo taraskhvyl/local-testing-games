@@ -2,7 +2,6 @@ import {
   CHANGE_SEARCHFIELD,
   REQUEST_ROBOTS_PENDING,
   REQUEST_ROBOTS_SUCCESS,
-  REQUEST_ROBOTS_FAILED
 } from './constants';
 
 import * as reducers from './reducers';
@@ -42,6 +41,26 @@ describe('requestRobots', () => {
     })).toEqual({
       robots: [],
       isPending: true
+    })
+  });
+
+  it("should handle REQUEST_ROBOTS_SUCCESS action", () => {
+    expect(reducers.requestRobots(initialsStateRobots, {
+      type: REQUEST_ROBOTS_SUCCESS,
+      payload: [{
+        id: '123',
+        name: 'Test',
+        email: 'test@gmaill.com'
+      }]
+    })).toEqual({
+      robots: [
+        {
+          id: '123',
+          name: 'Test',
+          email: 'test@gmaill.com'
+        }
+      ],
+      isPending: false
     })
   });
 })
